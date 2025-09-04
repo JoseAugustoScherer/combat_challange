@@ -1,5 +1,10 @@
 package entities;
 
+/**
+ *
+ * @author jose.augusto.github@gmail.com
+ */
+
 public class Champion {
    
     private String name;
@@ -8,21 +13,29 @@ public class Champion {
     private int armor;
     
     public void takeDamage ( Champion champion ) {
-      int damage = champion.getAtack() - this.armor;
-      if ( this.life > 0 ) {
+
+        int damage = champion.getAtack() - this.armor;
+        if ( damage <= 0 ) {
+            damage = 1;
+        }
+
         this.life -= damage;
-      }
+
+        if ( this.life < 0 ) {
+            this.life = 0;
+        }
     }
 
     public String status () {
-       if ( this.life > 0) {
+       if ( this.life > 0 ) {
         return toString();
        } else {
+        this.life = 0;
         return toString() + " (dead)";
        }
     }
 
-    public Champion(String name, int life, int atack, int armor) {
+    public Champion( String name, int life, int atack, int armor ) {
         this.name = name;
         this.life = life;
         this.atack = atack;
@@ -62,7 +75,7 @@ public class Champion {
     }
 
     public String toString() {
-        return name + ": " + life + " health";
+        return " -> " + name + ": " + life + " health";
     }
 
 }
